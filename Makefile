@@ -5,8 +5,8 @@ CFLAGS := -W -Wall -O2 ${CFLAGS}
 LDFLAGS := -l lcms2 ${LDFLAGS}
 
 PREFIX ?= /usr/local
-BINDIR ?= ${PREFIX}/bin
-AUTO_START_DIR=/etc/xdg/autostart
+BIN_DIR ?= ${PREFIX}/bin/
+AUTO_START_DIR=/etc/xdg/autostart/
 
 all: icc-brightness-gen
 
@@ -17,19 +17,18 @@ clean:
 	rm -f icc-brightness-gen
 
 install: all
-	install -Dm755 -t $(DESTDIR)$(BINDIR) icc-brightness icc-brightness-gen
+	install -Dm755 -t $(DESTDIR)$(BIN_DIR) icc-brightness icc-brightness-gen
 	install -Dm644 -t $(DESTDIR)$(AUTO_START_DIR) icc-brightness.desktop
 
 uninstall:
-	rm -f $(DESTDIR)$(BIN_PATH)icc-brightness-gen
-	rm -f $(DESTDIR)$(BIN_PATH)icc-brightness
-	rm -f $(DESTDIR)$(AUTO_START_PATH)icc-brightness.desktop
+	rm -f $(DESTDIR)$(BIN_DIR)icc-brightness-gen
+	rm -f $(DESTDIR)$(BIN_DIR)icc-brightness
+	rm -f $(DESTDIR)$(AUTO_START_DIR)icc-brightness.desktop
 
-local-install: BIN_PATH=~/.local/bin/
-local-install: AUTO_START_PATH=~/.config/autostart/
+local-install: BIN_DIR=~/.local/bin/
+local-install: AUTO_START_DIR=~/.config/autostart/
 local-install: install
 
-local-uninstall: BIN_PATH=~/.local/bin/
-local-uninstall: AUTO_START_PATH=~/.config/autostart/
+local-uninstall: BIN_DIR=~/.local/bin/
+local-uninstall: AUTO_START_DIR=~/.config/autostart/
 local-uninstall: uninstall
-
